@@ -1,0 +1,112 @@
+body {
+	background:#f3f0d6ed;
+}
+
+h1 {
+	margin-left:35%;
+	margin-bottom:3%;
+}
+
+table {
+	margin-left: 15%;
+	background:#000000;
+	width: 95%;
+}
+
+form {
+	margin-top: 5%;
+	margin-left: 25%;
+}
+
+tr:nth-child(odd) td:nth-child(2n){
+	background:#fdf1dd;
+}
+
+tr:nth-child(odd) td:nth-child(2n+1) {
+	background:#b6946e;
+}
+
+tr:nth-child(even) td:nth-child(2n+2) {
+	background:#b6946e;
+}
+
+tr:nth-child(even) td:nth-child(2n+3) {
+	background:#fdf1dd;
+}
+
+
+th {
+	padding:0;
+	font-size: 300%;
+	width:80px;
+	height:70px;
+	text-align: center;
+	background: darkgray;
+	color:white;
+}
+
+td {
+	padding:0;
+	font-size: 60px;
+	width:70px;
+	height:auto;
+	text-align: center;
+}
+
+td:hover {
+    outline: 2px solid red;
+}
+
+.hidden {
+	color :#fdf1dd;
+	pointer-events: none;
+}
+
+label {
+	margin-left:3%;
+}
+
+.show label:hover {
+	color:red;
+}
+
+#centre {
+	float:left;
+}
+
+
+#boiteReponse {
+	display: inline-block;
+}
+
+#boiteEnigme {
+}
+
+#nav_droite {
+	float: left;
+    margin-left: 8%;
+    background-color: fdf1dd;
+    padding: 1%;
+    border: 1px solid;
+}
+
+#listes {
+	border:1px solid #000;
+	font-family:arial;
+	height:100px;
+	width:200px;
+  }
+  ul{
+	list-style:none;
+	max-height:100px;
+	margin:0;
+	overflow:auto;
+	padding:0;
+	text-indent:10px;
+  }
+  li{
+	line-height:25px;
+  }
+  li:nth-child(even){
+	background:#ccc;
+  }

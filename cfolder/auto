@@ -1,0 +1,8 @@
+#!/bin/bash
+
+while true
+do
+	make;
+	make -f reponse.makefile;
+	sleep 1;
+done

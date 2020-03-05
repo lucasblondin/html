@@ -5,18 +5,36 @@ var list = document.getElementsByClassName('rep');
 var tableau = document.getElementsByClassName("tab");
 var cellules = document.getElementsByClassName("cellule");
 var tableauInitial = document.getElementsByClassName("init");
-var buttonSubmit = document.getElementById("submit");
 var reponsesTrouvees = "";
 
+var general = 0;
+
 // depart
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
 
 //console.log( "taille : " +  list.length-1);
 deplacementDepart(list.length-1,list.length-1);
 
-buttonSubmit.onclick = function(){
+
+
+
+
+$('#listes label').on('click',function() {
     var requete = new XMLHttpRequest();
-    var preSelection = document.getElementById("select");
-    var selection = preSelection.options[preSelection.selectedIndex].value;
+    
+    $(this).css('color','blue');
+    var test = $(this).text();
+    var enigme = test.split(' ');
+
+    console.log(enigme[0]);
+    
+    var selection = enigme[0];
     requete.open("GET","show?" + selection,false);
     requete.send(null);
 
@@ -24,7 +42,6 @@ buttonSubmit.onclick = function(){
     console.log(requete.responseText);
 
     var requeteReponse = new XMLHttpRequest();
-    var preSelection = document.getElementById("select");
     requeteReponse.open("GET","reponse?" + selection,false);
     requeteReponse.send(null);
 
@@ -44,7 +61,7 @@ buttonSubmit.onclick = function(){
     var nouveau = document.getElementsByClassName('rep').length;
     //console.log("taille :" + nouveau);
     deplacement(nouveau-1,nouveau-1);
-}
+});
 
 
 buttonReponse.onclick = function(){
@@ -63,30 +80,40 @@ buttonReponse.onclick = function(){
     }    
 }
 
-$('label').on('click',function() {
+function paint(count){
+    for(i = 0 ; i < cellules.length;i++){
+        document.getElementsByClassName("cellule")[i].innerText = tableauInitial[i].innerText; 
+        document.getElementsByClassName("cellule")[i].setAttribute('style','');
+    }
+
+    $('textarea').empty();
+
+    console.log("taille : " + (list.length-1) - count + " " + (list[count].innerText));
+    deptest((list.length-1) - count, (list.length-1) - count);
+}
+
+$('#avance').on('click',function() {
+    general++;
+    var count = general;
+    paint(count);
+});
+
+$('#retour').on('click',function() {
+    general--;
+    var count = general;
+    paint(count);
+});
+
+
+$('#hide label').on('click',function() {
     $(this).css('color','blue');
     
     var count = 0; 
     while(list[count].innerText != this.innerText){
         count++;
     }
-
-    for(i = 0 ; i < cellules.length;i++){
-        //console.log("Avant _____________");
-        //console.log("c["+i+"] = " + cellules[i].innerText + " tableauInitial[" + i + "] = " + tableauInitial[i].innerText);
-        document.getElementsByClassName("cellule")[i].innerText = tableauInitial[i].innerText; 
-        document.getElementsByClassName("cellule")[i].setAttribute('style','');
-        //console.log("Apres _____________");
-        //console.log("c["+i+"] = " + cellules[i].innerText + " tableauInitial[" + i + "] = " + tableauInitial[i].innerText);
-    }
-
-    $('textarea').empty();
-
-    //console.log("taille : " + ((list.length-1) - count));
-    //deplacementDepart((list.length-1) - count, (list.length-1) - count);
-    deptest((list.length-1) - count, (list.length-1) - count);
-    //deplacement(count,count);
-    //color(list[count]);
+    console.log(count);
+    paint(count);
 });
 
 var counting = 0;
@@ -150,7 +177,7 @@ function deptest(tour){
     var fin = list.length;
     while(fin > ((list.length-1) - tour)){
         fin--;
-        //console.log("position = " + fin + "  " + list[fin].innerText );
+        console.log("position = " + fin + "  " + list[fin].innerText );
         decodeCoup(list[fin],fin);
     }
 }
@@ -265,8 +292,8 @@ function codeUnCoup(coup1,coup2,dep){
     //$('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
     //console.log(list[words.length-1].innerText);
 
-    console.log(words);
-    console.log("position actuelle " + positionActu);
+    //console.log(words);
+    //console.log("position actuelle " + positionActu);
 
     if(list[positionActu].innerText[0].charCodeAt(0) < 'a'.charCodeAt(0) ){
 	var r = list[positionActu].innerText[0] + c2Lettre + c2Chiffre + list[positionActu].innerText[3] + c1Lettre +  c1Chiffre;
@@ -276,8 +303,8 @@ function codeUnCoup(coup1,coup2,dep){
 
     var comp = list[positionActu].innerText.substring(0, 6);
     
-    console.log("r    = " + r);
-    console.log("comp = " + comp);
+    //console.log("r    = " + r);
+    //console.log("comp = " + comp);
 
     if(r == comp){
         
@@ -288,21 +315,29 @@ function codeUnCoup(coup1,coup2,dep){
         if(dep == "deplacement"){
         
         var count = 0; 
-        while(list[count].innerText != this.innerText){
+        while(list[count].innerText != list[positionActu+1].innerText){
                 count++;
         }
 
 
-            console.log(list[positionActu+1]);
-            decodeCoup(list[positionActu+1],+1);
+        for(i = 0 ; i < cellules.length;i++){
+            document.getElementsByClassName("cellule")[i].innerText = tableauInitial[i].innerText; 
+            document.getElementsByClassName("cellule")[i].setAttribute('style','');
         }
-        $('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
+
+        $('textarea').empty();
+        console.log( "position" + (list.length-1) - count);
+        deptest((list.length-1) - count, count-1);
+        }
+
+        //$('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
         return "correcte";
     }
         return "incorrecte";
 }
 
   var oldVal = "";
+
   $("#story").on("change keyup paste", function() {
       var currentVal = $(this).val();
       if(currentVal == oldVal) {
@@ -316,7 +351,4 @@ function codeUnCoup(coup1,coup2,dep){
       var words = text.split(',');
       //deplacement(words.length-1);
   });
-
-
-
 

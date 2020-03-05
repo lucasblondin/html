@@ -56,22 +56,23 @@ void autre_enigme(string s){
     cout << "<div id=\'listes\'>\n";
     cout << "<ul>\n";
 
-    for(int i = 0 ; i < position.size(); i++){
-            cout << "<li> " << position[i] << "</li> \n";   
+    for(int i = 0 ; i < position.size()-1; i+=2){
+            cout << "<li> <label  class=\"enigmes\" >" << position[i] << " " << position[i+1] << "<label> </li> \n"; 
+            //cout << "<li> <label  class=\"enigmes\" >" << position[i] << "<label> </li> \n";  
     }
 
     cout << "</ul>\n";
     cout << "</div>\n";
-    cout << "<button id=\"submit\">appliquer</button>\n";
     cout << "</div>\n";
 }
 
 
 void affichageReponse(string s){
     cout << "<button id=\"boutonVoir\"> Voir le resultat </button>\n";
-    
+    cout << "<button id=\"debut\"> Début </button> <button id=\"retour\"> < </button> <button id=\"avance\"> > </button> <button id=\"fin\" > Fin </button>";    
     string delimiter = " ";    
     vector<string> position;
+
 
     int i = 0;
     while(s.length() > 3){

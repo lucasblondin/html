@@ -80,7 +80,7 @@ void affichageReponse(string s){
     }
     cout << "<div id=\"hide\"class=\"hidden\">\n";
     for(int i = 0 ; i < position.size(); i++){
-            cout << "<label class=\"rep\"> " << position[i] << "</label> \n";   
+            cout << "<label class=\"rep\"> " << position[(position.size()-1) - i] << "</label> \n";   
     }
     cout << "</div>\n";
 

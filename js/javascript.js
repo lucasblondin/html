@@ -10,8 +10,8 @@ var reponsesTrouvees = "";
 
 // depart
 
-//console.log( "taille : " +  list.length);
-deplacement(list.length-1,list.length-1);
+//console.log( "taille : " +  list.length-1);
+deplacementDepart(list.length-1,list.length-1);
 
 buttonSubmit.onclick = function(){
     var requete = new XMLHttpRequest();
@@ -82,8 +82,9 @@ $('label').on('click',function() {
 
     $('textarea').empty();
 
-    console.log("taille : " + count);
-        deplacement((list.length-1) - count, (list.length-1) - count);
+    //console.log("taille : " + ((list.length-1) - count));
+    //deplacementDepart((list.length-1) - count, (list.length-1) - count);
+    deptest((list.length-1) - count, (list.length-1) - count);
     //deplacement(count,count);
     //color(list[count]);
 });
@@ -144,6 +145,29 @@ function deplacement(tour,max){
     decodeCoup(list[tour],tour);
 }
 
+function deptest(tour){
+    //console.log(" tour = " + tour );
+    var fin = list.length;
+    while(fin > ((list.length-1) - tour)){
+        fin--;
+        //console.log("position = " + fin + "  " + list[fin].innerText );
+        decodeCoup(list[fin],fin);
+    }
+}
+
+function deplacementDepart(tour,max){
+    
+    if(tour == -1){
+        return;
+    }
+
+    if(tour < 0){
+        tour = 0;
+    }
+    //console.log(list[max - tour].innerText + " tour =" + tour);
+    deplacementDepart(tour-1,max);
+    decodeCoup(list[max - tour],tour);
+}
 
 function decodeCoup(code,index){
     
@@ -171,7 +195,7 @@ function decodeCoup(code,index){
     var positionFinalY = parseInt(code.innerText[4]);
     
     }
-    console.log("piece = " + piece + " couleur = " + couleur + " pIx = " + positionInitX + " pIy = " + positionInitY + " pFx = " + positionFinalX + " pFy = " + positionFinalY);
+    //console.log("piece = " + piece + " couleur = " + couleur + " pIx = " + positionInitX + " pIy = " + positionInitY + " pFx = " + positionFinalX + " pFy = " + positionFinalY);
 
 
    //console.log((positionInitX) + ( 8 * (8 - positionInitY)));
@@ -233,32 +257,44 @@ function codeUnCoup(coup1,coup2,dep){
     var piece2 = document.getElementById(coup2).innerText;
 
     var text = document.getElementById("story").value;
-    //console.log(text);
     var words = text.split(',');
+
+    var positionActu = (list.length) - (words.length - 1);
 
     reponsesTrouvees += piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ";
     //$('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
     //console.log(list[words.length-1].innerText);
 
-    if(list[words.length-1].innerText[0].charCodeAt(0) < 'a'.charCodeAt(0) ){
-	var r = list[words.length-1].innerText[0] + c1Lettre + c1Chiffre + list[words.length-1].innerText[3] + c2Lettre +  c2Chiffre;
+    console.log(words);
+    console.log("position actuelle " + positionActu);
+
+    if(list[positionActu].innerText[0].charCodeAt(0) < 'a'.charCodeAt(0) ){
+	var r = list[positionActu].innerText[0] + c2Lettre + c2Chiffre + list[positionActu].innerText[3] + c1Lettre +  c1Chiffre;
     }else {
-	var r = c1Lettre + c1Chiffre + list[words.length-1].innerText[2] + c2Lettre +  c2Chiffre;
+	var r = c2Lettre + c2Chiffre + list[positionActu].innerText[2] + c1Lettre +  c1Chiffre;
     }
 
-    var comp = list[words.length-1].innerText.substring(0, 6);
+    var comp = list[positionActu].innerText.substring(0, 6);
     
-    //console.log("r = " + r);
-    //console.log("comp = " + comp);
+    console.log("r    = " + r);
+    console.log("comp = " + comp);
 
     if(r == comp){
         
         //console.log(list[words.length-1].innerText + " " +  words.length );
 
-        list[words.length-1].style.color = "green";
+        list[positionActu].style.color = "green";
 
         if(dep == "deplacement"){
-            decodeCoup(list[words.length-1],-1);
+        
+        var count = 0; 
+        while(list[count].innerText != this.innerText){
+                count++;
+        }
+
+
+            console.log(list[positionActu+1]);
+            decodeCoup(list[positionActu+1],+1);
         }
         $('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
         return "correcte";

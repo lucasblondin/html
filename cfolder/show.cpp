@@ -68,7 +68,7 @@ void autre_enigme(string s){
 
 
 void affichageReponse(string s){
-    cout << "<button id=\"boutonVoir\"> Voir le resultat </button>\n";
+    cout << "<button id=\"boutonVoir\">résultat</button>\n";
     cout << "<button id=\"debut\"> terminé </button> <button id=\"retour\"> < </button> <button id=\"avance\"> > </button> <button id=\"fin\" > état initial </button>";    
     string delimiter = " ";    
     vector<string> position;

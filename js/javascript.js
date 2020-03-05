@@ -73,7 +73,7 @@ buttonReponse.onclick = function(){
         buttonReponse.innerText = "cacher";
     }else{
         divReponse.className = "hidden";
-        buttonReponse.innerText = "Voir le resultat";
+        buttonReponse.innerText = "résultat";
 
         /*
         for(i = 0 ; i < cellules.length;i++){

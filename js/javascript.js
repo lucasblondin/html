@@ -37,8 +37,8 @@ buttonSubmit.onclick = function(){
 
     var words = requeteReponse.responseText.split(' ');
     for(i = 0 ; i < listReponse.length;i++){
-        //console.log(words[i]);
-        listReponse[i].innerText =  words[i];
+        //console.log(words[listReponse.length  - i]);
+        listReponse[i].innerText =  words[listReponse.length - i];
         //console.log(document.getElementById("hide")[i].innerHTML);
     }
     var nouveau = document.getElementsByClassName('rep').length;
@@ -81,7 +81,10 @@ $('label').on('click',function() {
     }
 
     $('textarea').empty();
-    deplacement(count,count);
+
+    console.log("taille : " + count);
+        deplacement((list.length-1) - count, (list.length-1) - count);
+    //deplacement(count,count);
     //color(list[count]);
 });
 
@@ -130,17 +133,16 @@ function color(code){
     cellules[(positionInitX) + ( 8 * (8 - positionInitY))].setAttribute('style','background-color:green;');
 }
 
+
 function deplacement(tour,max){
     
     if(tour == -1){
         return;
     }
-
+    //console.log("tour : " + tour + " Max : " + max);
     deplacement(tour-1);
     decodeCoup(list[tour],tour);
-
 }
-
 
 
 function decodeCoup(code,index){
@@ -151,7 +153,6 @@ function decodeCoup(code,index){
     }else {
         var couleur = "b";
     }
-
     if(code.innerText[0].charCodeAt(0) < 'a'.charCodeAt(0) ){
     var piece = code.innerText[0];
 
@@ -170,10 +171,7 @@ function decodeCoup(code,index){
     var positionFinalY = parseInt(code.innerText[4]);
     
     }
-
-    
-
-    //console.log("piece = " + piece + " couleur = " + couleur + " pIx = " + positionInitX + " pIy = " + positionInitY + " pFx = " + positionFinalX + " pFy = " + positionFinalY);
+    console.log("piece = " + piece + " couleur = " + couleur + " pIx = " + positionInitX + " pIy = " + positionInitY + " pFx = " + positionFinalX + " pFy = " + positionFinalY);
 
 
    //console.log((positionInitX) + ( 8 * (8 - positionInitY)));
@@ -221,7 +219,7 @@ function decodeCoup(code,index){
 
 
 function codeUnCoup(coup1,coup2,dep){
-    console.log("coup1 = " + coup1 + "/ coup2 = " + coup2);
+    //console.log("coup1 = " + coup1 + "/ coup2 = " + coup2);
     
     var c1Chiffre = 8 - (Math.trunc(coup1/8)) ;
 

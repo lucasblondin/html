@@ -83,7 +83,10 @@ void affichageReponse(string s){
             cout << "<label class=\"rep\"> " << position[i] << "</label> \n";   
     }
     cout << "</div>\n";
+
 }
+
+
 
 void affichageReponseChangement(string s){
     
@@ -96,9 +99,10 @@ void affichageReponseChangement(string s){
     s.erase(0,s.find(delimiter) + delimiter.length());
     }
     for(int i = 0 ; i < position.size(); i++){
-            cout << "<label class=\"rep\"> " << position[i] << "</label> \n";   
+            cout << "<label class=\"rep\"> " << position[(position.size()-1) - i] << "</label> \n";   
     }
 }
+
 
 void show_tab(){
     cout << "<table id=\"idTab\" class=\"tab\">\n";
@@ -277,7 +281,7 @@ int main(int argc, char **argv){
    recupEnigmes.execMain("select nom_aut,id_enigme from AUTEUR inner join ENIGME on ENIGME.id_aut=AUTEUR.id_aut");
    string resultat_enigme = recupEnigmes.resQuery();
    //cout << "RESULTAT DE QUERY " << resultat_enigme << endl;
-   cout << resultat_enigme ;
+   //cout << resultat_enigme ;
    autre_enigme(resultat_enigme);
 
    cout << "<h4 for=\"story\">Notez vos coups ! </h4>";

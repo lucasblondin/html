@@ -75,8 +75,8 @@ public:
             //string s = "SHOW TABLES IN DATABASE ";
             //s += MY_DATABASE;
             string s ;
-            unsigned int num_fields;
-            num_fields = mysql_num_fields(res);
+            
+            int num_fields = (int)mysql_num_fields(res);
             while((row = mysql_fetch_row(res)) != NULL){
                 for(int i = 0; i < num_fields ;i++){
                     s += row[i];
@@ -85,7 +85,8 @@ public:
                 s+="\n";
             }
 
-            resultat_query = s +  " IL Y A " + num_fields;
+            resultat_query = s;
+            //resultat_query = s +  " salut " + std::to_string(num_fields);
 
             //resultat_query = (const)s.c_str();
             // libérer la mémoire

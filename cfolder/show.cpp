@@ -69,7 +69,7 @@ void autre_enigme(string s){
 
 void affichageReponse(string s){
     cout << "<button id=\"boutonVoir\"> Voir le resultat </button>\n";
-    cout << "<button id=\"debut\"> Début </button> <button id=\"retour\"> < </button> <button id=\"avance\"> > </button> <button id=\"fin\" > Fin </button>";    
+    cout << "<button id=\"debut\"> terminé </button> <button id=\"retour\"> < </button> <button id=\"avance\"> > </button> <button id=\"fin\" > état initial </button>";    
     string delimiter = " ";    
     vector<string> position;
 
@@ -79,12 +79,20 @@ void affichageReponse(string s){
     position.push_back(s.substr(0,s.find(delimiter)));
     s.erase(0,s.find(delimiter) + delimiter.length());
     }
+
+
+    cout << "<div id=\'listeRep\'>\n";
+    cout << "<ul>\n";
     cout << "<div id=\"hide\"class=\"hidden\">\n";
+    
     for(int i = 0 ; i < position.size(); i++){
-            cout << "<label class=\"rep\"> " << position[(position.size()-1) - i] << "</label> \n";   
+            
+            cout << "<li><label class=\"rep\"> " << position[(position.size()-1) - i] << "</label></li> \n";   
+
     }
     cout << "</div>\n";
 
+    cout << "</ul></div>";
 }
 
 
@@ -100,8 +108,9 @@ void affichageReponseChangement(string s){
     s.erase(0,s.find(delimiter) + delimiter.length());
     }
     for(int i = 0 ; i < position.size(); i++){
-            cout << "<label class=\"rep\"> " << position[(position.size()-1) - i] << "</label> \n";   
+            cout << "<li><label class=\"rep\"> " << position[(position.size()-1) - i] << "</label></li> \n";   
     }
+
 }
 
 
@@ -254,7 +263,7 @@ int main(int argc, char **argv){
    cout << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n" ;
    cout << "</head>\n";
    cout << "<body >\n";
-   cout << "<h1>Welcome to ChessWeb</h1>\n";
+   cout << "<h1>CHESSWEB</h1>\n";
    cout << "<div id=\"centre\">\n";
    //connectionBase.execMain("select placement_enigme from ENIGME where id_enigme=1");
    queryCoup = "select coup from COUPS where id_enigme=1";

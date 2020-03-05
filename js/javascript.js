@@ -60,7 +60,10 @@ $('#listes label').on('click',function() {
     }
     var nouveau = document.getElementsByClassName('rep').length;
     //console.log("taille :" + nouveau);
-    deplacement(nouveau-1,nouveau-1);
+    //deplacement(nouveau-1,nouveau-1);
+    $('textarea').empty();
+    paint(0);
+    //deplacement(0,0);
 });
 
 
@@ -93,16 +96,31 @@ function paint(count){
 }
 
 $('#avance').on('click',function() {
-    general++;
-    var count = general;
-    paint(count);
+    if(general < (list.length-1)){
+        general++;
+        var count = general;
+        paint(count);
+    }
 });
 
 $('#retour').on('click',function() {
+    if(general > 0){
     general--;
     var count = general;
     paint(count);
+    }
 });
+
+$('#debut').on('click',function() {
+    general = 0;
+    paint(0);
+});
+
+$('#fin').on('click',function() {
+    general = list.length-1;
+    paint((list.length-1));
+});
+
 
 
 $('#hide label').on('click',function() {

@@ -2,10 +2,26 @@ body {
 	background:#f3f0d6ed;
 }
 
+
 h1 {
 	margin-left:35%;
 	margin-bottom:3%;
+	font-family: monospace;
+	height: 2%;
+	animation: welcome 7s;
+	animation-iteration-count: 1;
 }
+
+@keyframes welcome {
+	0% {opacity:0;}
+	20% {opacity:20;}
+	40% {opacity:40;}
+	60% {opacity:60;}
+	80% {opacity:80;}
+	100% {opacity:100;}
+}
+
+
 
 table {
 	margin-left: 15%;
@@ -66,12 +82,14 @@ label {
 	margin-left:3%;
 }
 
-.show label:hover {
+label:hover {
 	color:red;
+	outline: 2px solid red;
 }
 
 #centre {
 	float:left;
+	margin-bottom:2%;
 }
 
 
@@ -79,23 +97,23 @@ label {
 	display: inline-block;
 }
 
-#boiteEnigme {
-}
 
 #nav_droite {
 	float: left;
     margin-left: 8%;
     background-color: fdf1dd;
     padding: 1%;
-    border: 1px solid;
+	border: 1px solid;
+	width : 25%;
 }
 
-#listes {
+
+#listes ,listesRep{
 	border:1px solid #000;
 	font-family:arial;
 	height:100px;
-	width:200px;
   }
+
   ul{
 	list-style:none;
 	max-height:100px;
@@ -109,4 +127,8 @@ label {
   }
   li:nth-child(even){
 	background:#ccc;
+  }
+
+  textarea {
+	  width : 100%;
   }

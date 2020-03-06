@@ -93,6 +93,10 @@ label:hover {
 }
 
 
+#boutonVoir{
+	width: 60px;
+}
+
 #boiteReponse {
 	display: inline-block;
 }

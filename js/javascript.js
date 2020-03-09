@@ -39,7 +39,7 @@ $('#listes label').on('click',function() {
     requete.send(null);
 
     //document.getElementById("centre").innerHTML = requete.responseText;
-    console.log(requete.responseText);
+    //console.log(requete.responseText);
 
     var requeteReponse = new XMLHttpRequest();
     requeteReponse.open("GET","reponse?" + selection,false);
@@ -49,7 +49,7 @@ $('#listes label').on('click',function() {
     //document.getElementById("hide").innerHTML = requeteReponse.responseText;
     document.getElementById("hide").innerHTML = requete.responseText;
     var listReponse = document.getElementById("hide");
-    console.log(listReponse.innerText);
+    //console.log(listReponse.innerText);
     
 
     var words = requeteReponse.responseText.split(' ');
@@ -91,7 +91,7 @@ function paint(count){
 
     $('textarea').empty();
 
-    console.log("taille : " + (list.length-1) - count + " " + (list[count].innerText));
+    //console.log("taille : " + (list.length-1) - count + " " + (list[count].innerText));
     deptest((list.length-1) - count, (list.length-1) - count);
 }
 
@@ -195,7 +195,7 @@ function deptest(tour){
     var fin = list.length;
     while(fin > ((list.length-1) - tour)){
         fin--;
-        console.log("position = " + fin + "  " + list[fin].innerText );
+        //console.log("position = " + fin + "  " + list[fin].innerText );
         decodeCoup(list[fin],fin);
     }
 }
@@ -216,13 +216,46 @@ function deplacementDepart(tour,max){
 
 function decodeCoup(code,index){
     
+    
 
     if(index%2==0){
-        var couleur = "w";
-    }else {
         var couleur = "b";
+    }else {
+        var couleur = "w";
     }
+
+    //console.log("longueur " + code.innerText.length + " charactere = " + code.innerText[0]);
+
     if(code.innerText[0].charCodeAt(0) < 'a'.charCodeAt(0) ){
+
+    if(code.innerText[0] == 'O'){
+
+    var piece = code.innerText[4];
+
+    var positionInitX = code.innerText[5].charCodeAt(0) - 97;
+    var positionInitY = parseInt(code.innerText[6]);
+    
+    var positionFinalX = code.innerText[8].charCodeAt(0) - 97;
+    var positionFinalY = parseInt(code.innerText[9]);
+        
+    var positionInitXR = code.innerText[12].charCodeAt(0) - 97;
+    var positionInitYR = parseInt(code.innerText[13]);
+    
+    var positionFinalXR = code.innerText[15].charCodeAt(0) - 97;
+    var positionFinalYR = parseInt(code.innerText[16]);
+
+    var tour;
+
+    if(couleur == "b"){
+        tour = '♜';
+    }else {
+        tour = '♖';
+    }
+    
+    cellules[(positionFinalXR) + (8 *(8 - positionFinalYR))].innerText = tour;
+    cellules[(positionInitXR) + (8 * (8 - positionInitYR))].innerText = " ";
+
+    }else{
     var piece = code.innerText[0];
 
     var positionInitX = code.innerText[1].charCodeAt(0) - 97;
@@ -230,8 +263,20 @@ function decodeCoup(code,index){
 
     var positionFinalX = code.innerText[4].charCodeAt(0) - 97;
     var positionFinalY = parseInt(code.innerText[5]);
-    }else {      
-    var piece = "P";
+    }
+
+    }else {
+      var piece;
+    if(code.innerText.length == 7){
+        piece = code.innerText[6];
+        if(couleur == "b"){
+            couleur = "w";
+        }else {
+            couleur = "b";
+        }
+    }else {
+      piece = "P";  
+    }
     
     var positionInitX = code.innerText[0].charCodeAt(0) - 97;
     var positionInitY = parseInt(code.innerText[1]);
@@ -240,6 +285,7 @@ function decodeCoup(code,index){
     var positionFinalY = parseInt(code.innerText[4]);
     
     }
+    
     //console.log("piece = " + piece + " couleur = " + couleur + " pIx = " + positionInitX + " pIy = " + positionInitY + " pFx = " + positionFinalX + " pFy = " + positionFinalY);
 
 
@@ -250,39 +296,46 @@ function decodeCoup(code,index){
         var P ;
         
         if (couleur == 'w'){
-            if(piece == 'K'){
+            if(piece == 'K' || piece == 'R'){
                 P = '♔';
-            }else if(piece == 'Q'){
+            }else if(piece == 'Q' || piece == 'D'){
                 P = '♕';
-            }else if(piece == 'B'){
+            }else if(piece == 'B' || piece == 'F'){
                 P = '♗';
-            }else if(piece == 'N'){
+            }else if(piece == 'N' || piece == 'C'){
                 P = '♘';
-            }else if(piece == 'R'){
+            }else if(piece == 'R' || piece == 'T'){
                 P = '♖';
             }else if(piece == 'P'){
                 P = '♙';
             }
         }else if (couleur == 'b'){
-            if(piece == 'K'){
+            if(piece == 'K' || piece == 'R'){
                 P = '♚';
-            }else if(piece == 'Q'){
+            }else if(piece == 'Q' || piece == 'D'){
                 P = '♛';
-            }else if(piece == 'B'){
+            }else if(piece == 'B' || piece == 'F'){
                 P = '♝';
-            }else if(piece == 'N'){
+            }else if(piece == 'N' || piece == 'C'){
                 P = '♞';
-            }else if(piece == 'P'){
+            }else if(piece == 'R' || piece == 'T'){
+                P = '♜';
+            }else if(piece == 'P' || piece == 'T'){
                 P = '♟';
             }
         }
         
-        //console.log(P);
-
+        //console.log("longueur " + code.innerText.length + " index = " + index + " general = " + general+ " P = " + P );
+        //console.log("piece = " + piece + " P = " + P);
         $('textarea').append( P + code.innerText[2] + positionInitY + "x" + code.innerText[4] + positionFinalY + ", ");
     }
     
-    cellules[(positionFinalX) + (8 *(8 - positionFinalY))].innerText = cellules[(positionInitX) + ( 8 * (8 - positionInitY))].innerText;
+    if(code.innerText.length == 7){
+    cellules[(positionFinalX) + (8 *(8 - positionFinalY))].innerText = P;
+    }else {
+    cellules[(positionFinalX) + (8 *(8 - positionFinalY))].innerText = cellules[(positionInitX) + (8 * (8 - positionInitY))].innerText;
+    }
+
     cellules[(positionInitX) + (8 * (8 - positionInitY))].innerText = " ";
 }
 

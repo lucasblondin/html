@@ -93,6 +93,10 @@ label:hover {
 }
 
 
+#boutonVoir{
+	width: 60px;
+}
+
 #boiteReponse {
 	display: inline-block;
 }
@@ -108,11 +112,21 @@ label:hover {
 }
 
 
-#listes ,listesRep{
+#listes {
 	border:1px solid #000;
 	font-family:arial;
 	height:100px;
   }
+
+#boitereponse{
+	font-family:arial;
+	height: 13%;
+    width: 99%;
+}
+
+#listeRep ul li {
+	background:#fdf1dd;
+}
 
   ul{
 	list-style:none;
@@ -132,3 +146,5 @@ label:hover {
   textarea {
 	  width : 100%;
   }
+
+  

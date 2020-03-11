@@ -254,7 +254,7 @@ int main(int argc, char **argv){
 
    }else {
    
-   cout << "<html id=\"body\">\n";
+   //cout << "<html id=\"body\">\n";
    cout << "<head>\n";
    cout << "<title>ChessWeb</title>\n";
    cout << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../styles.css\">\n";
@@ -297,7 +297,7 @@ int main(int argc, char **argv){
    cout << "<h4 for=\"story\">Notez vos coups ! </h4>";
 
    cout << "<textarea id=\"story\" name=\"story\"\n";
-   cout << "rows=\"5\" cols=\"33\" disabled>\n";
+   cout << "rows=\"5\" cols=\"33\" >\n";
    cout << "\n";
    cout << "</textarea>\n";
 
@@ -309,7 +309,7 @@ int main(int argc, char **argv){
 
    cout << "<script id=\"js\" src=\"../js/javascript.js\"></script>\n";
    cout << "</body>\n";
-   cout << "</html>\n";
+   //cout << "</html>\n";
 
     //creat_tab();
     //show_tab();

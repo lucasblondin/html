@@ -1,4 +1,5 @@
 
+
 var buttonReponse = document.getElementById("boutonVoir");
 var divReponse = document.getElementById("hide");
 var list = document.getElementsByClassName('rep');
@@ -64,6 +65,20 @@ $('#listes label').on('click',function() {
     $('textarea').empty();
     paint(0);
     //deplacement(0,0);
+
+
+    $('#hide label').on('click',function() {
+        $(this).css('color','blue');
+        
+        var count = 0; 
+        while(list[count].innerText != this.innerText){
+            count++;
+        }
+        console.log(count);
+        paint(count);
+    });
+
+
 });
 
 
@@ -327,7 +342,7 @@ function decodeCoup(code,index){
         
         //console.log("longueur " + code.innerText.length + " index = " + index + " general = " + general+ " P = " + P );
         //console.log("piece = " + piece + " P = " + P);
-        $('textarea').append( P + code.innerText[2] + positionInitY + "x" + code.innerText[4] + positionFinalY + ", ");
+       // $('textarea').append( P + code.innerText[2] + positionInitY + "x" + code.innerText[4] + positionFinalY + ", ");
     }
     
     if(code.innerText.length == 7){
@@ -341,7 +356,7 @@ function decodeCoup(code,index){
 
 
 function codeUnCoup(coup1,coup2,dep){
-    //console.log("coup1 = " + coup1 + "/ coup2 = " + coup2);
+    console.log("coup1 = " + coup1 + "/ coup2 = " + coup2);
     
     var c1Chiffre = 8 - (Math.trunc(coup1/8)) ;
 
@@ -354,10 +369,29 @@ function codeUnCoup(coup1,coup2,dep){
     var c2Lettre = String.fromCharCode(97 + coup2%8);
     var piece2 = document.getElementById(coup2).innerText;
 
-    var text = document.getElementById("story").value;
+    /*var text = document.getElementById("story").value;
     var words = text.split(',');
 
-    var positionActu = (list.length) - (words.length - 1);
+    var positionActu = (list.length) - (words.length - 1);*/
+    console.log(list.length - general);
+
+    var positionActu = (general);
+    console.log("general = " + general + "/ calcul = " + (list.length - general) );
+    
+    if((list.length - general) != 0){
+       // general++;
+
+        var tmp = c2Chiffre;
+        var tmp2= c2Lettre;
+
+        var c2Chiffre = c1Chiffre;
+        var c2Lettre = c2Lettre;
+          
+        var c2Chiffre = tmp;
+        var c2Lettre = tmp2;
+    }
+
+    
 
     reponsesTrouvees += piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ";
     //$('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
@@ -379,6 +413,10 @@ function codeUnCoup(coup1,coup2,dep){
 
     if(r == comp){
         
+        if((list.length - general) != 0){
+            general++;
+        }
+
         //console.log(list[words.length-1].innerText + " " +  words.length );
 
         list[positionActu].style.color = "green";
@@ -396,19 +434,18 @@ function codeUnCoup(coup1,coup2,dep){
             document.getElementsByClassName("cellule")[i].setAttribute('style','');
         }
 
-        $('textarea').empty();
+        //$('textarea').empty();
         console.log( "position" + (list.length-1) - count);
         deptest((list.length-1) - count, count-1);
         }
 
-        //$('textarea').append( piece1 + c1Lettre + c1Chiffre  + "x" + piece2 + c2Lettre +  c2Chiffre  + ", ");
         return "correcte";
     }
         return "incorrecte";
 }
 
   var oldVal = "";
-
+/*
   $("#story").on("change keyup paste", function() {
       var currentVal = $(this).val();
       if(currentVal == oldVal) {
@@ -421,5 +458,5 @@ function codeUnCoup(coup1,coup2,dep){
       //console.log(text);
       var words = text.split(',');
       //deplacement(words.length-1);
-  });
+  });*/
 
